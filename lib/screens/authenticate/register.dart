@@ -35,7 +35,10 @@ class _RegisterState extends State<Register> {
               elevation: 0.0,
               title: Text('Sign up for Kriss Kross'),
               actions: <Widget>[
-                FlatButton.icon(
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                  ),
                   icon: Icon(Icons.person),
                   label: Text('Sign In'),
                   onPressed: () {
@@ -48,72 +51,77 @@ class _RegisterState extends State<Register> {
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               child: Form(
                 key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                        decoration:
-                            testInputDecoration.copyWith(hintText: 'Name'),
-                        validator: (val) =>
-                            val.isEmpty ? 'Enter your name' : null,
-                        onChanged: (val) {
-                          setState(() => name = val);
-                        }),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                        decoration:
-                            testInputDecoration.copyWith(hintText: 'Email'),
-                        validator: (val) =>
-                            val.isEmpty ? 'Enter an email' : null,
-                        onChanged: (val) {
-                          setState(() => email = val);
-                        }),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                        decoration:
-                            testInputDecoration.copyWith(hintText: 'Password'),
-                        obscureText: true,
-                        validator: (val) => val.length < 6
-                            ? 'Enter a password 6+ characters long'
-                            : null,
-                        onChanged: (val) {
-                          setState(() => password = val);
-                        }),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                        decoration:
-                            testInputDecoration.copyWith(hintText: 'Phone'),
-                        validator: (val) =>
-                            val.isEmpty ? 'Enter your phone number' : null,
-                        onChanged: (val) {
-                          setState(() => phone = val);
-                        }),
-                    SizedBox(height: 20.0),
-                    RaisedButton(
-                        color: Colors.pink[400],
-                        child: Text('Sign Up',
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            setState(() => loading = true);
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                          decoration:
+                              testInputDecoration.copyWith(hintText: 'Name'),
+                          validator: (val) =>
+                              val.isEmpty ? 'Enter your name' : null,
+                          onChanged: (val) {
+                            setState(() => name = val);
+                          }),
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                          decoration:
+                              testInputDecoration.copyWith(hintText: 'Email'),
+                          validator: (val) =>
+                              val.isEmpty ? 'Enter an email' : null,
+                          onChanged: (val) {
+                            setState(() => email = val);
+                          }),
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                          decoration: testInputDecoration.copyWith(
+                              hintText: 'Password'),
+                          obscureText: true,
+                          validator: (val) => val.length < 6
+                              ? 'Enter a password 6+ characters long'
+                              : null,
+                          onChanged: (val) {
+                            setState(() => password = val);
+                          }),
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                          decoration:
+                              testInputDecoration.copyWith(hintText: 'Phone'),
+                          validator: (val) =>
+                              val.isEmpty ? 'Enter your phone number' : null,
+                          onChanged: (val) {
+                            setState(() => phone = val);
+                          }),
+                      SizedBox(height: 20.0),
+                      ElevatedButton(
+                          //color: Colors.pink[400],
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.pink[400],
+                          ),
+                          child: Text('Sign Up',
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () async {
+                            if (_formKey.currentState.validate()) {
+                              setState(() => loading = true);
 
-                            dynamic result =
-                                await _auth.registerWithEmailAndPassword(
-                                    email, password, name, phone);
-                            if (result == null) {
-                              setState(() {
-                                loading = false;
-                                error = 'Invalid email or password';
-                              });
+                              dynamic result =
+                                  await _auth.registerWithEmailAndPassword(
+                                      email, password, name, phone);
+                              if (result == null) {
+                                setState(() {
+                                  loading = false;
+                                  error = 'Invalid email or password';
+                                });
+                              }
                             }
-                          }
-                        }),
-                    SizedBox(height: 12.0),
-                    Text(
-                      error,
-                      style: TextStyle(color: Colors.red, fontSize: 14.0),
-                    ),
-                  ],
+                          }),
+                      SizedBox(height: 12.0),
+                      Text(
+                        error,
+                        style: TextStyle(color: Colors.red, fontSize: 14.0),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

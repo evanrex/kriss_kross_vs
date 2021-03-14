@@ -3,19 +3,16 @@ import 'package:kriss_kross_vs/models/location.dart';
 import 'package:kriss_kross_vs/screens/home/location_tile.dart';
 import 'package:provider/provider.dart';
 
-class LocationList extends StatefulWidget {
+class ETA extends StatefulWidget {
   @override
-  _LocationListState createState() => _LocationListState();
+  _ETAState createState() => _ETAState();
 }
 
-class _LocationListState extends State<LocationList> {
+class _ETAState extends State<ETA> {
   @override
   Widget build(BuildContext context) {
     final locations = Provider.of<List<Location>>(context) ?? [];
-    locations.forEach((location) {
-      print(location.name);
-      print(location.geoPoint);
-    });
+    locations.forEach((location) {});
 
     return ListView.builder(
       itemCount: locations.length,

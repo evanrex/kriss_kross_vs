@@ -32,7 +32,10 @@ class _SignInState extends State<SignIn> {
               elevation: 0.0,
               title: Text('Sign in to Kriss Kross'),
               actions: <Widget>[
-                FlatButton.icon(
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    primary: Colors.white,
+                  ),
                   icon: Icon(Icons.person),
                   label: Text('Sign up'),
                   onPressed: () {
@@ -45,52 +48,57 @@ class _SignInState extends State<SignIn> {
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
               child: Form(
                 key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                        decoration:
-                            testInputDecoration.copyWith(hintText: 'Email'),
-                        validator: (val) =>
-                            val.isEmpty ? 'Enter an email' : null,
-                        onChanged: (val) {
-                          setState(() => email = val);
-                        }),
-                    SizedBox(height: 20.0),
-                    TextFormField(
-                        decoration:
-                            testInputDecoration.copyWith(hintText: 'Password'),
-                        obscureText: true,
-                        validator: (val) =>
-                            val.isEmpty ? 'Enter a password' : null,
-                        onChanged: (val) {
-                          setState(() => password = val);
-                        }),
-                    SizedBox(height: 20.0),
-                    RaisedButton(
-                        color: Colors.pink[400],
-                        child: Text('Sign In',
-                            style: TextStyle(color: Colors.white)),
-                        onPressed: () async {
-                          if (_formKey.currentState.validate()) {
-                            setState(() => loading = true);
-                            dynamic result = await _auth
-                                .signInWithEmailAndPassword(email, password);
-                            print('valid');
-                            if (result == null) {
-                              setState(() {
-                                loading = false;
-                                error = 'Invalid email or password';
-                              });
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                          decoration:
+                              testInputDecoration.copyWith(hintText: 'Email'),
+                          validator: (val) =>
+                              val.isEmpty ? 'Enter an email' : null,
+                          onChanged: (val) {
+                            setState(() => email = val);
+                          }),
+                      SizedBox(height: 20.0),
+                      TextFormField(
+                          decoration: testInputDecoration.copyWith(
+                              hintText: 'Password'),
+                          obscureText: true,
+                          validator: (val) =>
+                              val.isEmpty ? 'Enter a password' : null,
+                          onChanged: (val) {
+                            setState(() => password = val);
+                          }),
+                      SizedBox(height: 20.0),
+                      ElevatedButton(
+                          //color: Colors.pink[400],
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.pink[400],
+                          ),
+                          child: Text('Sign In',
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () async {
+                            if (_formKey.currentState.validate()) {
+                              setState(() => loading = true);
+                              dynamic result = await _auth
+                                  .signInWithEmailAndPassword(email, password);
+                              print('valid');
+                              if (result == null) {
+                                setState(() {
+                                  loading = false;
+                                  error = 'Invalid email or password';
+                                });
+                              }
                             }
-                          }
-                        }),
-                    SizedBox(height: 12.0),
-                    Text(
-                      error,
-                      style: TextStyle(color: Colors.red, fontSize: 14.0),
-                    ),
-                  ],
+                          }),
+                      SizedBox(height: 12.0),
+                      Text(
+                        error,
+                        style: TextStyle(color: Colors.red, fontSize: 14.0),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

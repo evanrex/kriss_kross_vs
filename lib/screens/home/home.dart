@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kriss_kross_vs/models/location.dart';
 import 'package:kriss_kross_vs/screens/home/location_list.dart';
@@ -32,15 +31,21 @@ class Home extends StatelessWidget {
           backgroundColor: Colors.brown[400],
           elevation: 0.0,
           actions: <Widget>[
-            FlatButton.icon(
+            TextButton.icon(
               icon: Icon(Icons.person),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+              ),
               label: Text('logout'),
               onPressed: () async {
                 await _auth.signOut();
               },
             ),
-            FlatButton.icon(
+            TextButton.icon(
               icon: Icon(Icons.settings),
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+              ),
               label: Text('Profile'),
               onPressed: () => _showSettingsPanel(),
             ),

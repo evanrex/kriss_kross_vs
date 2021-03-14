@@ -16,8 +16,8 @@ class _ProfileFormState extends State<ProfileForm> {
   // form values
   String _currentName;
   String _currentPhone;
-  String _currentEmail;
-  String _currentPassword;
+  //String _currentEmail;
+  //String _currentPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +55,8 @@ class _ProfileFormState extends State<ProfileForm> {
                     onChanged: (val) => setState(() => _currentPhone = val),
                   ),
                   SizedBox(height: 10.0),
-                  RaisedButton(
-                      color: Colors.pink[400],
+                  ElevatedButton(
+                      //color: Colors.pink[400],
                       child: Text(
                         'Update',
                         style: TextStyle(color: Colors.white),

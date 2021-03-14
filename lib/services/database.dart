@@ -38,6 +38,9 @@ class DatabaseService {
       return Location(
         name: doc.data['Name'] ?? '',
         geoPoint: doc.data['GeoPoint'] ?? null,
+        arrivalTime: doc.data['Arrival Time'] ?? null,
+        pickUpLocations: doc.data['PickUpLocations'] ?? null,
+        travelTimes: doc.data['Travel Time'] ?? null,
       );
     }).toList();
   }
