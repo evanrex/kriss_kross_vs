@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kriss_kross_vs/models/location.dart';
+import 'package:kriss_kross_vs/models/user.dart';
 
 class DatabaseService {
   //collection reference
@@ -21,6 +22,16 @@ class DatabaseService {
     });
   }
 
+  //user data from snapshot
+
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+        uid: uid,
+        name: snapshot.data['name'],
+        phone: snapshot.data['phone'],
+        email: snapshot.data['email']);
+  }
+
   //locations list from snapshot
   List<Location> _locationListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
@@ -37,5 +48,10 @@ class DatabaseService {
 
   Stream<QuerySnapshot> get users {
     return usersCollection.snapshots();
+  }
+
+  //get user doc stream
+  Stream<UserData> get userData {
+    return usersCollection.document(uid).snapshots().map(_userDataFromSnapshot);
   }
 }

@@ -12,7 +12,7 @@ class LocationList extends StatefulWidget {
 class _LocationListState extends State<LocationList> {
   @override
   Widget build(BuildContext context) {
-    final locations = Provider.of<List<Location>>(context);
+    final locations = Provider.of<List<Location>>(context) ?? [];
     locations.forEach((location) {
       print(location.name);
       print(location.geoPoint);
