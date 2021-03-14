@@ -14,11 +14,25 @@ class DatabaseService {
   final CollectionReference locationsCollection =
       Firestore.instance.collection('locations');
 
+  final CollectionReference bookingsCollection =
+      Firestore.instance.collection('bookings');
+
   Future updateUserData(String name, String phone, String email) async {
     return await usersCollection.document(uid).setData({
       'name': name,
       'phone': phone,
       'email': email,
+    });
+  }
+
+  Future makeBooking(String userName, String userPhone, String destination,
+      String eta, String pickUpPoint) async {
+    return await bookingsCollection.document().setData({
+      'userName': userName,
+      'userPhone': userPhone,
+      'destination': destination,
+      'eta': eta,
+      'pickUpPoint': pickUpPoint,
     });
   }
 

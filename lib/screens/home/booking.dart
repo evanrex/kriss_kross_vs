@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:kriss_kross_vs/models/location.dart';
+import 'package:kriss_kross_vs/models/user.dart';
+import 'package:kriss_kross_vs/services/database.dart';
+import 'package:provider/provider.dart';
 
 class Booking extends StatefulWidget {
   final Location location;
@@ -46,6 +49,7 @@ class _BookingState extends State<Booking> {
 
   @override
   Widget build(BuildContext context) {
+    //final userData = Provider.of<UserData>(context);
     return Scaffold(
         backgroundColor: Colors.brown[100],
         appBar: AppBar(
@@ -95,7 +99,16 @@ class _BookingState extends State<Booking> {
                         ),
                         child:
                             Text('Book', style: TextStyle(color: Colors.white)),
-                        onPressed: () {
+                        onPressed: () async {
+                          await DatabaseService().makeBooking(
+                            // userData.name,
+                            // userData.phone,
+                            'name',
+                            'phone',
+                            widget.location.name,
+                            _desiredETA,
+                            _desiredPickUp,
+                          );
                           Navigator.pop(context);
                         }),
                     SizedBox(width: 20.0),

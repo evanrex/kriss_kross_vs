@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kriss_kross_vs/models/location.dart';
+import 'package:kriss_kross_vs/models/user.dart';
 import 'package:kriss_kross_vs/screens/home/location_tile.dart';
 import 'package:provider/provider.dart';
 

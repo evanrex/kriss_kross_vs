@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kriss_kross_vs/models/location.dart';
+import 'package:kriss_kross_vs/models/user.dart';
 import 'package:kriss_kross_vs/screens/home/location_list.dart';
 import 'package:kriss_kross_vs/screens/home/profile_form.dart';
 import 'package:kriss_kross_vs/services/auth.dart';
