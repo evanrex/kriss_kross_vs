@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kriss_kross_vs/models/location.dart';
 import 'package:kriss_kross_vs/models/user.dart';
+import 'package:kriss_kross_vs/models/booking_model.dart';
 
 class DatabaseService {
   //collection reference
@@ -25,14 +26,25 @@ class DatabaseService {
     });
   }
 
-  Future makeBooking(String userName, String userPhone, String destination,
-      String eta, String pickUpPoint) async {
+  Future makeBooking(
+    String userName,
+    String userPhone,
+    String destination,
+    String eta,
+    String pickUpPoint,
+    String pickUpTime,
+    String selectedDate,
+    String userUID,
+  ) async {
     return await bookingsCollection.document().setData({
       'userName': userName,
       'userPhone': userPhone,
       'destination': destination,
       'eta': eta,
       'pickUpPoint': pickUpPoint,
+      'pickUpTime': pickUpTime,
+      'selectedDate': selectedDate,
+      'uid': userUID,
     });
   }
 
@@ -59,8 +71,27 @@ class DatabaseService {
     }).toList();
   }
 
+  List<Booking> _bookingsListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Booking(
+        docID: doc.documentID,
+        userName: doc.data['userName'] ?? '',
+        userPhone: doc.data['userPhone'] ?? null,
+        destination: doc.data['destination'] ?? null,
+        pickUpPoint: doc.data['pickUpPoint'] ?? null,
+        pickUpTime: doc.data['pickUpTime'] ?? null,
+        eta: doc.data['eta'] ?? null,
+        selectedDate: doc.data['selectedDate'] ?? null,
+      );
+    }).toList();
+  }
+
   Stream<List<Location>> get locations {
     return locationsCollection.snapshots().map(_locationListFromSnapshot);
+  }
+
+  Stream<List<Booking>> get bookings {
+    return bookingsCollection.snapshots().map(_bookingsListFromSnapshot);
   }
 
   Stream<QuerySnapshot> get users {

@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:kriss_kross_vs/models/location.dart';
 import 'package:kriss_kross_vs/models/user.dart';
 import 'package:kriss_kross_vs/services/database.dart';
 import 'package:kriss_kross_vs/shared/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class Booking extends StatefulWidget {
   final Location location;
@@ -19,6 +18,29 @@ class Booking extends StatefulWidget {
 class _BookingState extends State<Booking> {
   String _desiredETA;
   String _desiredPickUp;
+  String pickUpTime = '';
+  String selectedDate = '';
+  String chosenDate = "Please Select a Date";
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+
+  DateTime _date = new DateTime.now().add(Duration(days: 1));
+  DateTime selectedDate1 = new DateTime.now();
+
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: _date,
+      lastDate: _date.add(Duration(days: 14)),
+    );
+
+    if (picked != null) {
+      setState(() {
+        selectedDate = formatter.format(picked);
+        chosenDate = 'Selected Date: ' + formatter.format(picked);
+      });
+    }
+  }
 
   String pickupTime(Map travelTimes, String destination, String eta) {
     if (eta == null || destination == null) {
@@ -39,12 +61,10 @@ class _BookingState extends State<Booking> {
       estMin += 60;
     }
 
+    pickUpTime = estHour.toString() + ':' + estMin.toString() + '\n' + '\n';
+
     return 'Boarding time: ' +
-        estHour.toString() +
-        ':' +
-        estMin.toString() +
-        '\n' +
-        '\n' +
+        pickUpTime +
         'Please be at pick up point 5 minutes before boarding time.';
   }
 
@@ -72,7 +92,12 @@ class _BookingState extends State<Booking> {
                       children: <Widget>[
                         SizedBox(height: 20.0),
                         //drop down:
-
+                        RaisedButton(
+                          child: Text(chosenDate),
+                          onPressed: () {
+                            _selectDate(context);
+                          },
+                        ),
                         DropdownButtonFormField(
                           hint: Text('Select desired ETA'),
                           items: widget.location.arrivalTime.map((eta) {
@@ -114,11 +139,12 @@ class _BookingState extends State<Booking> {
                                   await DatabaseService().makeBooking(
                                     userData.name,
                                     userData.phone,
-                                    // 'name',
-                                    // 'phone',
                                     widget.location.name,
                                     _desiredETA,
                                     _desiredPickUp,
+                                    pickUpTime,
+                                    selectedDate,
+                                    userData.uid,
                                   );
                                   Navigator.pop(context);
                                 }),
