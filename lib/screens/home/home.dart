@@ -15,6 +15,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     void _showSettingsPanel() {
       showModalBottomSheet(
+          backgroundColor: Colors.brown[200],
           context: context,
           builder: (context) {
             return Container(

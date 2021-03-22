@@ -36,7 +36,10 @@ class _ProfileFormState extends State<ProfileForm> {
                 children: <Widget>[
                   Text(
                     'Update your profile settings.',
-                    style: TextStyle(fontSize: 18.0),
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0),
                   ),
                   SizedBox(height: 20.0),
                   TextFormField(
@@ -55,8 +58,8 @@ class _ProfileFormState extends State<ProfileForm> {
                     onChanged: (val) => setState(() => _currentPhone = val),
                   ),
                   SizedBox(height: 10.0),
-                  ElevatedButton(
-                      //color: Colors.pink[400],
+                  RaisedButton(
+                      color: Colors.pink[400],
                       child: Text(
                         'Update',
                         style: TextStyle(color: Colors.white),
@@ -69,6 +72,16 @@ class _ProfileFormState extends State<ProfileForm> {
                               userData.email);
                           Navigator.pop(context);
                         }
+                      }),
+                  SizedBox(height: 10.0),
+                  RaisedButton(
+                      color: Colors.pink[400],
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
                       }),
                 ],
               ),
