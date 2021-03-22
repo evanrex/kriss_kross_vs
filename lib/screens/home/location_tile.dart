@@ -20,7 +20,6 @@ class LocationTile extends StatelessWidget {
                 location.geoPoint.longitude.toString() +
                 ')'),
             onTap: () {
-              print(location.name);
               Navigator.push(
                   context,
                   MaterialPageRoute(

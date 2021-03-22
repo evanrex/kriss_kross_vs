@@ -91,7 +91,14 @@ class DatabaseService {
   }
 
   Stream<List<Booking>> get bookings {
-    return bookingsCollection.snapshots().map(_bookingsListFromSnapshot);
+    if (uid == null) {
+      print('null uid');
+    }
+
+    return bookingsCollection
+        .where('uid', isEqualTo: uid)
+        .snapshots()
+        .map(_bookingsListFromSnapshot);
   }
 
   Stream<QuerySnapshot> get users {

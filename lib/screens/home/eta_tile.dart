@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:kriss_kross_vs/models/location.dart';
 import 'package:kriss_kross_vs/screens/home/booking.dart';
 
-class etaTile extends StatelessWidget {
+class ETATile extends StatelessWidget {
   final Location location;
 
-  const etaTile({Key key, this.location}) : super(key: key);
+  const ETATile({Key key, this.location}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Padding(
