@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:kriss_kross_vs/models/booking_model.dart';
 import 'package:kriss_kross_vs/models/user.dart';
 import 'package:kriss_kross_vs/screens/home/booking_tile.dart';
@@ -19,21 +20,41 @@ class _BookingsListState extends State<BookingsList> {
     //final bookings = Provider.of<List<Booking>>(context) ?? [];
 
     bool futureBooking(Booking booking) {
+      //Determines if the booking is in the future or in the past
+
       String selectedDate = booking.selectedDate.toString();
-      print('selectedDate: ' + selectedDate);
       DateTime bookingDate = DateTime.parse(selectedDate);
-      print('bookingDate: ' + bookingDate.toString());
-      DateTime now = new DateTime.now();
+      DateTime now = new DateTime(new DateTime.now().year,
+          new DateTime.now().month, new DateTime.now().day);
       print('now: ' + now.toString());
+      print('bookingDate: ' + bookingDate.toString());
 
       if (bookingDate.isBefore(now)) {
-        print('selected date is before now');
-        print('\n');
         return false;
       } else {
         print('selected date is after now');
-        print('\n');
-        return true;
+
+        DateTime nowTime =
+            new DateTime(new DateTime.now().hour, new DateTime.now().minute);
+
+        DateTime pickUpMoment =
+            new DateFormat.Hm().parse(booking.pickUpTime.toString());
+
+        DateTime pickUpTime =
+            new DateTime(pickUpMoment.hour, pickUpMoment.minute);
+        if (bookingDate.isAtSameMomentAs(now)) {
+          if (pickUpTime.isAfter(nowTime)) {
+            print('selected time is after now');
+            print('\n');
+            return true;
+          } else {
+            print('selected time is before now');
+            print('\n');
+            return false;
+          }
+        } else {
+          return true;
+        }
       }
     }
 

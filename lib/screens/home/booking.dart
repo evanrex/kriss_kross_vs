@@ -61,11 +61,25 @@ class _BookingState extends State<Booking> {
       estMin += 60;
     }
 
-    pickUpTime = estHour.toString() + ':' + estMin.toString() + '\n' + '\n';
+    String estHStr = '00';
+    String estMStr = '00';
+
+    if (estHour.toString().length == 1) {
+      estHStr = '0' + estHour.toString();
+    } else {
+      estHStr = estHour.toString();
+    }
+    if (estMin.toString().length == 1) {
+      estMStr = '0' + estMin.toString();
+    } else {
+      estMStr = estMin.toString();
+    }
+
+    pickUpTime = estHStr + ':' + estMStr;
 
     return 'Boarding time: ' +
         pickUpTime +
-        'Please be at pick up point 5 minutes before boarding time.';
+        '\n\nPlease be at pick up point 5 minutes before boarding time.';
   }
 
   @override
