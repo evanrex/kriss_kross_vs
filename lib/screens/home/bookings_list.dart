@@ -26,14 +26,10 @@ class _BookingsListState extends State<BookingsList> {
       DateTime bookingDate = DateTime.parse(selectedDate);
       DateTime now = new DateTime(new DateTime.now().year,
           new DateTime.now().month, new DateTime.now().day);
-      print('now: ' + now.toString());
-      print('bookingDate: ' + bookingDate.toString());
 
       if (bookingDate.isBefore(now)) {
         return false;
       } else {
-        print('selected date is after now');
-
         DateTime nowTime =
             new DateTime(new DateTime.now().hour, new DateTime.now().minute);
 
@@ -44,12 +40,8 @@ class _BookingsListState extends State<BookingsList> {
             new DateTime(pickUpMoment.hour, pickUpMoment.minute);
         if (bookingDate.isAtSameMomentAs(now)) {
           if (pickUpTime.isAfter(nowTime)) {
-            print('selected time is after now');
-            print('\n');
             return true;
           } else {
-            print('selected time is before now');
-            print('\n');
             return false;
           }
         } else {
