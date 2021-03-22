@@ -68,14 +68,7 @@ class Home extends StatelessWidget {
                   child: LocationList(),
                 ),
               ),
-              Text("Your upcoming trips:"),
-              SingleChildScrollView(
-                // <-- wrap this around
-                child: SizedBox(
-                  height: 300.0,
-                  child: BookingsList(),
-                ),
-              ),
+              BookingsList(),
             ],
           ),
         ));

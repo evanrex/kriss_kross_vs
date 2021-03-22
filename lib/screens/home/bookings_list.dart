@@ -17,21 +17,70 @@ class _BookingsListState extends State<BookingsList> {
     final user = Provider.of<User>(context);
 
     //final bookings = Provider.of<List<Booking>>(context) ?? [];
-    if (user.uid == null) {
-      print('uid null in bookings_list');
-    } else {
-      print(user.uid);
+
+    bool futureBooking(Booking booking) {
+      String selectedDate = booking.selectedDate.toString();
+      print('selectedDate: ' + selectedDate);
+      DateTime bookingDate = DateTime.parse(selectedDate);
+      print('bookingDate: ' + bookingDate.toString());
+      DateTime now = new DateTime.now();
+      print('now: ' + now.toString());
+
+      if (bookingDate.isBefore(now)) {
+        print('selected date is before now');
+        print('\n');
+        return false;
+      } else {
+        print('selected date is after now');
+        print('\n');
+        return true;
+      }
     }
+
+    DateTime now = new DateTime.now();
+
     return StreamBuilder<Object>(
         stream: DatabaseService(uid: user.uid).bookings,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Booking> bookings = snapshot.data;
-            return ListView.builder(
-              itemCount: bookings.length,
-              itemBuilder: (conext, index) {
-                return BookingTile(booking: bookings[index]);
-              },
+            return Column(
+              children: [
+                Text('Upcoming Bookings: '),
+                SingleChildScrollView(
+                  // <-- wrap this around
+                  child: SizedBox(
+                    height: 125.0,
+                    child: ListView.builder(
+                      itemCount: bookings.length,
+                      itemBuilder: (context, index) {
+                        if (futureBooking(bookings[index])) {
+                          return BookingTile(booking: bookings[index]);
+                        } else {
+                          return SizedBox(height: 1.0);
+                        }
+                      },
+                    ),
+                  ),
+                ),
+                Text('Past Bookings: '),
+                SingleChildScrollView(
+                  // <-- wrap this around
+                  child: SizedBox(
+                    height: 125.0,
+                    child: ListView.builder(
+                      itemCount: bookings.length,
+                      itemBuilder: (context, index) {
+                        if (!futureBooking(bookings[index])) {
+                          return BookingTile(booking: bookings[index]);
+                        } else {
+                          return SizedBox(height: 1.0);
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ],
             );
           } else {
             return Loading();

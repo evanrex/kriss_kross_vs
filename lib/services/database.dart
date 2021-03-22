@@ -91,10 +91,6 @@ class DatabaseService {
   }
 
   Stream<List<Booking>> get bookings {
-    if (uid == null) {
-      print('null uid');
-    }
-
     return bookingsCollection
         .where('uid', isEqualTo: uid)
         .snapshots()
