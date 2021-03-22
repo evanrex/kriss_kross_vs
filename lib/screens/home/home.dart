@@ -32,7 +32,7 @@ class Home extends StatelessWidget {
               value: DatabaseService().bookings),
         ],
         child: Scaffold(
-          backgroundColor: Colors.brown[50],
+          backgroundColor: Colors.pink[100],
           appBar: AppBar(
             title: Text('Kriss Kross'),
             backgroundColor: Colors.brown[400],
@@ -60,14 +60,7 @@ class Home extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Text("Book a trip to:"),
-              SingleChildScrollView(
-                // <-- wrap this around
-                child: SizedBox(
-                  height: 300.0,
-                  child: LocationList(),
-                ),
-              ),
+              LocationList(),
               BookingsList(),
             ],
           ),

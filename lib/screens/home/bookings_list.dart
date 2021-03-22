@@ -57,43 +57,83 @@ class _BookingsListState extends State<BookingsList> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Booking> bookings = snapshot.data;
-            return Column(
-              children: [
-                Text('Upcoming Bookings: '),
-                SingleChildScrollView(
-                  // <-- wrap this around
-                  child: SizedBox(
-                    height: 125.0,
-                    child: ListView.builder(
-                      itemCount: bookings.length,
-                      itemBuilder: (context, index) {
-                        if (futureBooking(bookings[index])) {
-                          return BookingTile(booking: bookings[index]);
-                        } else {
-                          return SizedBox(height: 1.0);
-                        }
-                      },
+            return Container(
+              margin: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Colors.brown[300],
+                gradient: new LinearGradient(
+                  colors: [Colors.brown, Colors.pink],
+                ),
+                //border: Border.all(color: Colors.brown[400], width: 5),
+                //boxShadow: [10.0],
+              ),
+              child: Column(
+                children: [
+                  Text('Upcoming Bookings: ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  SingleChildScrollView(
+                    // <-- wrap this around
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 2, color: Colors.white),
+                      ),
+                      height: 140.0,
+                      child: ListView.builder(
+                        itemCount: bookings.length,
+                        itemBuilder: (context, index) {
+                          if (futureBooking(bookings[index])) {
+                            return BookingTile(booking: bookings[index]);
+                          } else {
+                            return SizedBox(height: 1.0);
+                          }
+                        },
+                      ),
                     ),
                   ),
-                ),
-                Text('Past Bookings: '),
-                SingleChildScrollView(
-                  // <-- wrap this around
-                  child: SizedBox(
-                    height: 125.0,
-                    child: ListView.builder(
-                      itemCount: bookings.length,
-                      itemBuilder: (context, index) {
-                        if (!futureBooking(bookings[index])) {
-                          return BookingTile(booking: bookings[index]);
-                        } else {
-                          return SizedBox(height: 1.0);
-                        }
-                      },
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    'Past Bookings: ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Scrollbar(
+                    thickness: 5.0,
+                    child: SingleChildScrollView(
+                      // <-- wrap this around
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: Colors.white),
+                        ),
+                        height: 125.0,
+                        child: ListView.builder(
+                          itemCount: bookings.length,
+                          itemBuilder: (context, index) {
+                            if (!futureBooking(bookings[index])) {
+                              return BookingTile(booking: bookings[index]);
+                            } else {
+                              return SizedBox(height: 1.0);
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           } else {
             return Loading();

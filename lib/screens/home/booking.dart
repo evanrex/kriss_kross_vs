@@ -166,16 +166,18 @@ class _BookingState extends State<Booking> {
 
                           Text(
                             pickupTime(widget.location.travelTimes,
-                                _desiredPickUp, _desiredETA),
+                                    _desiredPickUp, _desiredETA) +
+                                '\n\n' +
+                                chosenDate,
                             style:
                                 TextStyle(color: Colors.white, fontSize: 15.0),
                           ),
-                          SizedBox(height: 12.0),
-                          Text(
-                            chosenDate,
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 16.0),
-                          ),
+                          // SizedBox(height: 12.0),
+                          // Text(
+                          //   chosenDate,
+                          //   style:
+                          //       TextStyle(color: Colors.white, fontSize: 16.0),
+                          // ),
                           SizedBox(height: 20.0),
 
                           Row(
