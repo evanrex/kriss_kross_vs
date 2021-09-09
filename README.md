@@ -1,6 +1,6 @@
 # kriss_kross_vs
 
-A new Flutter project.
+A ride-hailing app, designed for coordinating the institutional transport of people. 
 
 ## Getting Started
 
